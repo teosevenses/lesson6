@@ -75,26 +75,26 @@ class Main
 		
 
 	def create_station
+		begin
 		puts "Введите название станции"
 		name = gets.chomp
-		begin
 			station = Station.new(name)
 			puts "Произошло создание станции #{name}"
 			stations << station
 		rescue Station::ValidationError => error
 			puts "#{error.message}"
+			retry
 		end
-
 	end
 
 	def create_train
+		begin
 		puts "Введите тип поезда
 				0 - Грузовой
 				1 - Пассажирский"
 		type = gets.chomp
 		puts "Введите номер поезда"
 		num = gets.chomp 
-		begin
 			if type == "0" 
 				train = CargoTrain.new(num)
 				puts "Создан грузовой поезд"
@@ -108,6 +108,7 @@ class Main
 			end
 		rescue Train::ValidationError => error
 			puts "#{error.message}"
+			retry
 		end
 	end
 
